@@ -15,7 +15,7 @@ libraryDependencies ++=
       "com.github.scopt" %% "scopt" % "3.5.0")
 
 
-mainClass in assembly := Some("com.jakway.ctbash.Main")
+//mainClass in assembly := Some("com.jakway.ctbash.Main")
 
 //ignore anything named snippets.scala
 excludeFilter in unmanagedSources := HiddenFileFilter || "snippets.scala"
