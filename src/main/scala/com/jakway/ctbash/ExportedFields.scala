@@ -6,7 +6,7 @@ case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String)
 
 case class ExportAnnotationException(msg: String) extends RuntimeException(msg)
 
-class ExportedFields {
+object ExportedField {
 
   def hasExportAnnotation(f: Field): Boolean = {
     !f.getDeclaredAnnotations().filter(_.annotationType().isInstanceOf[Export]).isEmpty
