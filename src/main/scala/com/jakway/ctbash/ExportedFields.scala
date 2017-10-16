@@ -4,6 +4,8 @@ import java.lang.reflect.Field
 
 case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String)
 
+case class EvaluatedField[A](e: ExportedField[A], finalValue: String)
+
 case class ExportAnnotationException(msg: String) extends RuntimeException(msg)
 
 object ExportedField {
