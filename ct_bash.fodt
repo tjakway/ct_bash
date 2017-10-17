@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-10-12T13:02:21.845346357</meta:creation-date><dc:date>2017-10-15T15:47:20.656727681</dc:date><meta:editing-duration>PT1H28M24S</meta:editing-duration><meta:editing-cycles>37</meta:editing-cycles><meta:generator>LibreOffice/5.2.2.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="2" meta:paragraph-count="40" meta:word-count="395" meta:character-count="2230" meta:non-whitespace-character-count="1904"/></office:meta>
+ <office:meta><meta:creation-date>2017-10-12T13:02:21.845346357</meta:creation-date><dc:date>2017-10-16T23:27:13.781397143</dc:date><meta:editing-duration>PT1H30M10S</meta:editing-duration><meta:editing-cycles>40</meta:editing-cycles><meta:generator>LibreOffice/5.2.2.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="1" meta:paragraph-count="25" meta:word-count="229" meta:character-count="1396" meta:non-whitespace-character-count="1208"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
    <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
@@ -13,8 +13,8 @@
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">29513</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">7585</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">19064</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">2501</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
      <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">45582</config:config-item>
@@ -69,7 +69,7 @@
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
    <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">2279301</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">2409998</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
@@ -176,6 +176,9 @@
    <style:text-properties style:font-name="OpenSymbol" fo:font-family="OpenSymbol" style:font-charset="x-symbol" style:font-name-asian="OpenSymbol" style:font-family-asian="OpenSymbol" style:font-charset-asian="x-symbol" style:font-name-complex="OpenSymbol" style:font-family-complex="OpenSymbol" style:font-charset-complex="x-symbol"/>
   </style:style>
   <style:style style:name="Numbering_20_Symbols" style:display-name="Numbering Symbols" style:family="text"/>
+  <style:style style:name="Internet_20_link" style:display-name="Internet link" style:family="text">
+   <style:text-properties fo:color="#000080" fo:language="zxx" fo:country="none" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" style:language-asian="zxx" style:country-asian="none" style:language-complex="zxx" style:country-complex="none"/>
+  </style:style>
   <text:outline-style style:name="Outline">
    <text:outline-level-style text:level="1" style:num-format="">
     <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
@@ -242,13 +245,13 @@
   <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
   </style:style>
-  <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties officeooo:rsid="0022c785" officeooo:paragraph-rsid="0022c785" fo:background-color="#ffff00"/>
+  </style:style>
+  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
   </style:style>
-  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
-   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
-  </style:style>
-  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
    <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
   </style:style>
   <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L4">
@@ -257,8 +260,17 @@
   <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
   </style:style>
-  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:rsid="0022c785" officeooo:paragraph-rsid="0022c785" fo:background-color="#ffff00"/>
+  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+   <style:text-properties officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e"/>
+  </style:style>
+  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
+   <style:text-properties fo:font-style="italic" officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties officeooo:rsid="0022c785" officeooo:paragraph-rsid="0022c785" fo:background-color="transparent"/>
+  </style:style>
+  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae" fo:background-color="transparent"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
@@ -498,7 +510,7 @@
   </style:master-page>
  </office:master-styles>
  <office:body>
-  <office:text text:use-soft-page-breaks="true">
+  <office:text>
    <office:forms form:automatic-focus="false" form:apply-design-mode="false"/>
    <text:sequence-decls>
     <text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>
@@ -506,117 +518,56 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:list xml:id="list7876878508815284245" text:style-name="L1">
+   <text:list xml:id="list6333090958929566000" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P4">A small preprocessor/templating system that compiles to bash</text:p>
+     <text:p text:style-name="P5">A small preprocessor/templating system that compiles to bash</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P4">compiler directives should be prefixed with @</text:p>
+     <text:p text:style-name="P5">compiler directives should be prefixed with @</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P4"># and $ are already used extensively by bash...</text:p>
+       <text:p text:style-name="P5"># and $ are already used extensively by bash...</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P4">anything that appears in a @lang { … } block is evaluated at compile time</text:p>
+     <text:p text:style-name="P5">anything that appears in a @lang { … } block is evaluated at compile time</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P4">anything not in a @lang { … } block is bash with the exception of @-prefixed compiler directives that </text:p>
+       <text:p text:style-name="P5">anything not in a @lang { … } block is bash with the exception of @-prefixed compiler directives that </text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
-   <text:p text:style-name="P9">Update 2017-10-15: <text:s/>make @export a Java annotation that people write directly in their scala code. <text:s/>This removes the need for any manual scala parsing and removes the need for a @local tag.</text:p>
-   <text:p text:style-name="P3"/>
+   <text:p text:style-name="P11">Update 2017-10-15: <text:s/>make @export a Java annotation that people write directly in their scala code. <text:s/>This removes the need for any manual scala parsing and removes the need for a @local tag.</text:p>
+   <text:p text:style-name="P12"/>
    <text:p text:style-name="P3">Compiler Directives, all prefixed with @:</text:p>
-   <text:list xml:id="list4539519946306148316" text:style-name="L2">
+   <text:list xml:id="list1894691103746193284" text:style-name="L2">
     <text:list-item>
-     <text:p text:style-name="P5">@lang directives, evaluated in whatever language it is</text:p>
+     <text:p text:style-name="P6">@lang directives, evaluated in whatever language it is</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5">@scala, @haskell, @java, etc.</text:p>
+       <text:p text:style-name="P6">@scala, @haskell, @java, etc.</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P5">@variable in bash:</text:p>
+     <text:p text:style-name="P10">only<text:span text:style-name="T2"> have @lang blocks, assume everything else is the target language</text:span></text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5">i.e. <text:span text:style-name="T1">outside</text:span><text:span text:style-name="T2"> a @lang directive</text:span></text:p>
-      </text:list-item>
-      <text:list-item>
-       <text:p text:style-name="P5"><text:span text:style-name="T2">@variable </text:span><text:span text:style-name="T3">should not</text:span><text:span text:style-name="T4"> be valid syntax inside a @lang block (where you can just refer to it normally)</text:span></text:p>
+       <text:p text:style-name="P10"><text:span text:style-name="T2">means we don’t have to do any extra parsing</text:span></text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P5">@export/@local in a @lang block:</text:p>
+     <text:p text:style-name="P6">should warn but allow funny export behavior (e.g. exporting an uninitialized variable)</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5">Indicating which compile-time variables are visible and not visible to the bash script</text:p>
+       <text:p text:style-name="P6">possibly only allow variables of type String to be exported...</text:p>
        <text:list>
         <text:list-item>
-         <text:p text:style-name="P5">@export = exported to the bash script (visible)</text:p>
-        </text:list-item>
-        <text:list-item>
-         <text:p text:style-name="P5">@local <text:s text:c="2"/>= local to the compile-time language (not visible)</text:p>
-         <text:list>
-          <text:list-item>
-           <text:p text:style-name="P5">note that a @local variable can be used in multiple @lang blocks according to that language’s scoping rules, the @local only enforces @lang-vs.-bash scope</text:p>
-          </text:list-item>
-         </text:list>
-        </text:list-item>
-       </text:list>
-      </text:list-item>
-      <text:list-item>
-       <text:p text:style-name="P5">These directives should take 2 forms (identical behavior in both @export and @lang):</text:p>
-       <text:list>
-        <text:list-item>
-         <text:p text:style-name="P5">@export { … }</text:p>
-         <text:list>
-          <text:list-item>
-           <text:p text:style-name="P5">all variables declared in the block are exported</text:p>
-          </text:list-item>
-         </text:list>
-        </text:list-item>
-        <text:list-item>
-         <text:p text:style-name="P5">@export(foo, bar, baz)</text:p>
-         <text:list>
-          <text:list-item>
-           <text:p text:style-name="P5">previously declared variables foo, bar, and baz are all exported</text:p>
-          </text:list-item>
-         </text:list>
-        </text:list-item>
-        <text:list-item>
-         <text:p text:style-name="P5">@export val foo = …</text:p>
-         <text:list>
-          <text:list-item>
-           <text:p text:style-name="P5">inline with a variable declaration</text:p>
-          </text:list-item>
-         </text:list>
-        </text:list-item>
-       </text:list>
-      </text:list-item>
-      <text:list-item>
-       <text:p text:style-name="P5">should not be able to declare identically named variables @export and @local</text:p>
-       <text:list>
-        <text:list-item>
-         <text:p text:style-name="P5">nor should you be able to write @export @local let myvar = ….</text:p>
-        </text:list-item>
-       </text:list>
-      </text:list-item>
-     </text:list>
-    </text:list-item>
-    <text:list-item>
-     <text:p text:style-name="P5">should warn but allow funny export behavior (e.g. exporting an uninitialized variable)</text:p>
-     <text:list>
-      <text:list-item>
-       <text:p text:style-name="P5">possibly only allow variables of type String to be exported...</text:p>
-       <text:list>
-        <text:list-item>
-         <text:p text:style-name="P5">otherwise have to come up with a whole scala-to-bash type mapping that’s bound to be counterintuitive and irritating</text:p>
+         <text:p text:style-name="P6">otherwise have to come up with a whole scala-to-bash type mapping that’s bound to be counterintuitive and irritating</text:p>
         </text:list-item>
        </text:list>
       </text:list-item>
@@ -625,34 +576,34 @@
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Possible compiler constructs:</text:p>
-   <text:list xml:id="list154721665063564" text:continue-numbering="true" text:style-name="L2">
+   <text:list xml:id="list232714296532918" text:continue-numbering="true" text:style-name="L2">
     <text:list-item>
-     <text:p text:style-name="P5">since these would go in the regular bash section they’re trickier</text:p>
+     <text:p text:style-name="P6">since these would go in the regular bash section they’re trickier</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5">@if statements</text:p>
+       <text:p text:style-name="P6">@if statements</text:p>
       </text:list-item>
       <text:list-item>
-       <text:p text:style-name="P5">@for/@while loops</text:p>
+       <text:p text:style-name="P6">@for/@while loops</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Implementation Notes:</text:p>
-   <text:list xml:id="list6791520105379500101" text:style-name="L3">
+   <text:list xml:id="list6359334709978919716" text:style-name="L3">
     <text:list-item>
-     <text:p text:style-name="P6"><text:soft-page-break/>The compiler should specifically check for $@ and ignore it so it can be used seamlessly in bash</text:p>
+     <text:p text:style-name="P9">use <text:a xlink:type="simple" xlink:href="http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html</text:a> to compile scala code</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P6">but note occurrences if in verbose mode</text:p>
+       <text:p text:style-name="P9">need the 2.12.3 scala compiler API</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Languages other than scala:</text:p>
-   <text:list xml:id="list7414124073038109470" text:style-name="L4">
+   <text:list xml:id="list4783739534233911554" text:style-name="L4">
     <text:list-item>
      <text:p text:style-name="P7">Haskell</text:p>
     </text:list-item>
