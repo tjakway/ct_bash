@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-10-12T13:02:21.845346357</meta:creation-date><dc:date>2017-10-16T23:27:13.781397143</dc:date><meta:editing-duration>PT1H30M10S</meta:editing-duration><meta:editing-cycles>40</meta:editing-cycles><meta:generator>LibreOffice/5.2.2.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="1" meta:paragraph-count="25" meta:word-count="229" meta:character-count="1396" meta:non-whitespace-character-count="1208"/></office:meta>
+ <office:meta><meta:creation-date>2017-10-12T13:02:21.845346357</meta:creation-date><dc:date>2017-10-16T23:44:53.656408736</dc:date><meta:editing-duration>PT1H35M40S</meta:editing-duration><meta:editing-cycles>43</meta:editing-cycles><meta:generator>LibreOffice/5.2.2.2$Linux_X86_64 LibreOffice_project/20m0$Build-2</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="1" meta:paragraph-count="27" meta:word-count="243" meta:character-count="1584" meta:non-whitespace-character-count="1385"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">3879</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">45584</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">20301</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">19316</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">19064</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">2501</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">16536</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">19796</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">3879</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">45582</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">20299</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">23193</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -69,7 +69,7 @@
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
    <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">2409998</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">2487644</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
@@ -248,29 +248,41 @@
   <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="0022c785" officeooo:paragraph-rsid="0022c785" fo:background-color="#ffff00"/>
   </style:style>
-  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
-   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
-  </style:style>
-  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
-   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
-  </style:style>
-  <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L4">
-   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
-  </style:style>
-  <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Standard">
-   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
-  </style:style>
-  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e"/>
   </style:style>
-  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
+  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties fo:font-style="italic" officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e" style:font-style-asian="italic" style:font-style-complex="italic"/>
   </style:style>
-  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="0022c785" officeooo:paragraph-rsid="0022c785" fo:background-color="transparent"/>
   </style:style>
-  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Standard">
    <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae" fo:background-color="transparent"/>
+  </style:style>
+  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
+  </style:style>
+  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
+   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
+  </style:style>
+  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L4">
+   <style:text-properties officeooo:rsid="002155ae" officeooo:paragraph-rsid="002155ae"/>
+  </style:style>
+  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
+   <style:text-properties fo:font-style="italic" officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L2">
+   <style:text-properties fo:font-style="normal" officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e" style:font-style-asian="normal" style:font-style-complex="normal"/>
+  </style:style>
+  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+   <style:text-properties officeooo:rsid="0024c60e" officeooo:paragraph-rsid="0024c60e"/>
+  </style:style>
+  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+   <style:text-properties officeooo:rsid="0025f55c" officeooo:paragraph-rsid="0025f55c"/>
+  </style:style>
+  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L3">
+   <style:text-properties style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" fo:font-weight="bold" officeooo:rsid="0025f55c" officeooo:paragraph-rsid="0025f55c" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
@@ -518,56 +530,56 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:list xml:id="list6333090958929566000" text:style-name="L1">
+   <text:list xml:id="list6569241822744798132" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P5">A small preprocessor/templating system that compiles to bash</text:p>
+     <text:p text:style-name="P9">A small preprocessor/templating system that compiles to bash</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P5">compiler directives should be prefixed with @</text:p>
+     <text:p text:style-name="P9">compiler directives should be prefixed with @</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5"># and $ are already used extensively by bash...</text:p>
+       <text:p text:style-name="P9"># and $ are already used extensively by bash...</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P5">anything that appears in a @lang { … } block is evaluated at compile time</text:p>
+     <text:p text:style-name="P9">anything that appears in a @lang { … } block is evaluated at compile time</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P5">anything not in a @lang { … } block is bash with the exception of @-prefixed compiler directives that </text:p>
+       <text:p text:style-name="P9">anything not in a @lang { … } block is bash with the exception of @-prefixed compiler directives that </text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
-   <text:p text:style-name="P11">Update 2017-10-15: <text:s/>make @export a Java annotation that people write directly in their scala code. <text:s/>This removes the need for any manual scala parsing and removes the need for a @local tag.</text:p>
-   <text:p text:style-name="P12"/>
+   <text:p text:style-name="P7">Update 2017-10-15: <text:s/>make @export a Java annotation that people write directly in their scala code. <text:s/>This removes the need for any manual scala parsing and removes the need for a @local tag.</text:p>
+   <text:p text:style-name="P8"/>
    <text:p text:style-name="P3">Compiler Directives, all prefixed with @:</text:p>
-   <text:list xml:id="list1894691103746193284" text:style-name="L2">
+   <text:list xml:id="list5416837838999320334" text:style-name="L2">
     <text:list-item>
-     <text:p text:style-name="P6">@lang directives, evaluated in whatever language it is</text:p>
+     <text:p text:style-name="P10">@lang directives, evaluated in whatever language it is</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P6">@scala, @haskell, @java, etc.</text:p>
+       <text:p text:style-name="P10">@scala, @haskell, @java, etc.</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P10">only<text:span text:style-name="T2"> have @lang blocks, assume everything else is the target language</text:span></text:p>
+     <text:p text:style-name="P12">only<text:span text:style-name="T2"> have @lang blocks, assume everything else is the target language</text:span></text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P10"><text:span text:style-name="T2">means we don’t have to do any extra parsing</text:span></text:p>
+       <text:p text:style-name="P13">means we don’t have to do any extra parsing</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P6">should warn but allow funny export behavior (e.g. exporting an uninitialized variable)</text:p>
+     <text:p text:style-name="P10">should warn but allow funny export behavior (e.g. exporting an uninitialized variable)</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P6">possibly only allow variables of type String to be exported...</text:p>
+       <text:p text:style-name="P10">possibly only allow variables of type String to be exported...</text:p>
        <text:list>
         <text:list-item>
-         <text:p text:style-name="P6">otherwise have to come up with a whole scala-to-bash type mapping that’s bound to be counterintuitive and irritating</text:p>
+         <text:p text:style-name="P10">otherwise have to come up with a whole scala-to-bash type mapping that’s bound to be counterintuitive and irritating</text:p>
         </text:list-item>
        </text:list>
       </text:list-item>
@@ -576,39 +588,47 @@
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Possible compiler constructs:</text:p>
-   <text:list xml:id="list232714296532918" text:continue-numbering="true" text:style-name="L2">
+   <text:list xml:id="list130252844399648" text:continue-numbering="true" text:style-name="L2">
     <text:list-item>
-     <text:p text:style-name="P6">since these would go in the regular bash section they’re trickier</text:p>
+     <text:p text:style-name="P10">since these would go in the regular bash section they’re trickier</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P6">@if statements</text:p>
+       <text:p text:style-name="P10">@if statements</text:p>
       </text:list-item>
       <text:list-item>
-       <text:p text:style-name="P6">@for/@while loops</text:p>
+       <text:p text:style-name="P10">@for/@while loops</text:p>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Implementation Notes:</text:p>
-   <text:list xml:id="list6359334709978919716" text:style-name="L3">
+   <text:list xml:id="list4848460505207659175" text:style-name="L3">
     <text:list-item>
-     <text:p text:style-name="P9">use <text:a xlink:type="simple" xlink:href="http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html</text:a> to compile scala code</text:p>
+     <text:p text:style-name="P14">use <text:a xlink:type="simple" xlink:href="http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">http://www.scala-lang.org/api/2.12.3/scala-compiler/scala/tools/nsc/interpreter/IMain.html</text:a> to compile scala code</text:p>
      <text:list>
       <text:list-item>
-       <text:p text:style-name="P9">need the 2.12.3 scala compiler API</text:p>
+       <text:p text:style-name="P14">need the 2.12.3 scala compiler API</text:p>
+      </text:list-item>
+      <text:list-item>
+       <text:p text:style-name="P15">see also <text:a xlink:type="simple" xlink:href="https://github.com/eed3si9n/scalaxb/blob/b2f29c3e211deb752750c8311691e47b3f536081/integration/src/test/scala/CompilerMatcher.scala" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">https://github.com/eed3si9n/scalaxb/blob/b2f29c3e211deb752750c8311691e47b3f536081/integration/src/test/scala/CompilerMatcher.scala</text:a> </text:p>
+       <text:list>
+        <text:list-item>
+         <text:p text:style-name="P16">will probably want to reuse a lot/most of this</text:p>
+        </text:list-item>
+       </text:list>
       </text:list-item>
      </text:list>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P3">Languages other than scala:</text:p>
-   <text:list xml:id="list4783739534233911554" text:style-name="L4">
+   <text:list xml:id="list4684354336400270908" text:style-name="L4">
     <text:list-item>
-     <text:p text:style-name="P7">Haskell</text:p>
+     <text:p text:style-name="P11">Haskell</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P7">Java</text:p>
+     <text:p text:style-name="P11">Java</text:p>
     </text:list-item>
    </text:list>
   </office:text>
