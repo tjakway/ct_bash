@@ -1,18 +1,20 @@
 name := "ctbash"
 version := "1.0"
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.3"
 
 resolvers += Resolver.typesafeIvyRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies ++= 
-  Seq( // https://mvnrepository.com/artifact/org.scala-lang/scala-parser-combinators
-      "org.scala-lang" % "scala-parser-combinators" % "2.11.0-M4",
+  Seq(
+      "org.scala-lang.modules" % "scala-parser-combinators_2.12" % "1.0.6",
       "org.slf4j" % "slf4j-parent" % "1.7.6",
       "ch.qos.logback"  %  "logback-classic"    % "1.2.1",
       // % test declares it as a test-only dependency
-      "org.specs2" % "specs2_2.11" % "3.7" % "test",
-      "com.github.scopt" %% "scopt" % "3.5.0")
+      "org.specs2" % "specs2_2.12" % "3.8.9" % "test",
+      "com.github.scopt" %% "scopt" % "3.5.0",
+      "org.scala-lang" % "scala-compiler" % "2.12.3"
+    )
 
 
 //mainClass in assembly := Some("com.jakway.ctbash.Main")
