@@ -40,9 +40,6 @@ import scala.collection.mutable
 
 case class ScalaSource(src: String)
 
-// TODO
-//case class ScalaOptions extends CompilerOptions
-
 class OnCompilerWrite(val writeOp: String => Unit) {
 
   val msgs: mutable.Seq[String] = mutable.Seq()
@@ -165,18 +162,11 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
     .mkString(java.io.File.pathSeparator)
   }
 
-  def compile(outdir: String = ".",
-    classpath: List[String] = Nil,
-    usecurrentcp: Boolean = false,
-    unchecked: Boolean = true,
-    deprecation: Boolean = true,
-    feature: Boolean = true,
-    fatalWarnings: Boolean = true)(files: Seq[File]): CompileOutput = {
+  def compile(scalaOptions: ScalaOptions)(files: Seq[File]): CompileOutput = {
 
     import scala.tools.nsc.{Global}
 
-    val s = settings(outdir, classpath, usecurrentcp, unchecked,
-      deprecation, feature, fatalWarnings)
+    val s = scalaOptions.toSettings
     val reporter = new LogReporter(getClass(), s)
     val compiler = new Global(s, reporter)
     val run = (new compiler.Run)
@@ -227,4 +217,18 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
   }
   private def toSourceFile(file: File): SourceFile =
     new BatchSourceFile(new PlainFile(file))
+
+
+  case class ScalaOptions(outdir: String = ".",
+                          classpath: List[String] = Nil,
+                          usecurrentcp: Boolean = false,
+                          unchecked: Boolean = true,
+                          deprecation: Boolean = true,
+                          feature: Boolean = true,
+                          fatalWarnings: Boolean = true) extends CompilerOptions {
+    def toSettings = {
+      settings(outdir, classpath, usecurrentcp, unchecked,
+        deprecation, feature, fatalWarnings)
+    }
+  }
 }
