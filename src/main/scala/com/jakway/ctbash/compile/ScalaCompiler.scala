@@ -36,13 +36,14 @@ import scala.reflect.internal.util.Position
 import scala.tools.nsc.Settings
 import scala.tools.nsc.reporters.AbstractReporter
 
+import scala.collection.mutable
+
 case class ScalaSource(src: String)
 
 // TODO
 //case class ScalaOptions extends CompilerOptions
 
 class OnCompilerWrite(val writeOp: String => Unit) {
-  import scala.collection.mutable
 
   val msgs: mutable.Seq[String] = mutable.Seq()
 
@@ -52,6 +53,10 @@ class OnCompilerWrite(val writeOp: String => Unit) {
   }
 }
 
+case class ScalacWarning(override val description: String) extends CompileWarning
+case class ScalacError(override val description: String) extends CompileError
+
+
 /**
   * translates scalac's AbstractReporter to slf4j logging
   * @param loggingClass
@@ -60,9 +65,14 @@ class OnCompilerWrite(val writeOp: String => Unit) {
 class LogReporter(val loggingClass: Class[_], override val settings: Settings) extends AbstractReporter {
   val logger: Logger = LoggerFactory.getLogger(loggingClass)
 
+  val loggedWarnings: mutable.Seq[ScalacWarning] = mutable.Seq()
+  val loggedErrors:   mutable.Seq[ScalacError]   = mutable.Seq()
+
+
   private def getLevel(severity: Severity): String => Unit = severity match {
         case INFO => logger.info _
         case WARNING => logger.warn _
+        case ERROR   => logger.error _
         case _ => logger.info _
       }
 
@@ -72,6 +82,16 @@ class LogReporter(val loggingClass: Class[_], override val settings: Settings) e
   }
 
   override def displayPrompt(): Unit = {}
+
+  override def error(pos: Position, msg: String): Unit = {
+    super.error(pos, msg)
+    loggedErrors.:+(ScalacError(msg))
+  }
+
+  override def warning(pos: Position, msg: String): Unit = {
+    super.warning(pos, msg)
+    loggedWarnings.:+(ScalacWarning(msg))
+  }
 }
 
 class ScalaCompiler extends Compiler[CompilerOptions] {
@@ -80,6 +100,7 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
   import scala.tools.nsc.io.{PlainFile}
   import scala.tools.nsc.reporters.{ConsoleReporter}
 
+  val logger: Logger = LoggerFactory.getLogger(getClass())
 
   val stdOutWriter = new OnCompilerWrite(println)
 
@@ -210,30 +231,30 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
     .map(windowsFix)
     .mkString(java.io.File.pathSeparator)
   }
-  /** compile checks if the given list of files compiles without an error.
-   * @param outdir: String - output dir for the interpreter
-   */
+
   def compile(outdir: String = ".",
     classpath: List[String] = Nil,
     usecurrentcp: Boolean = false,
     unchecked: Boolean = true,
     deprecation: Boolean = true,
     feature: Boolean = true,
-    fatalWarnings: Boolean = true) = new Matcher[Seq[File]]() {
+    fatalWarnings: Boolean = true)(files: Seq[File]): CompileOutput = {
 
-    def apply[A <: Seq[File]](files: Expectable[A]) = {
-      import scala.tools.nsc.{Global}
-      val s = settings(outdir, classpath, usecurrentcp, unchecked,
-        deprecation, feature, fatalWarnings)
-      val reporter = new ConsoleReporter(s)
-      val compiler = new Global(s, reporter)
-      val run = (new compiler.Run)
-      run.compile(files.value.map(_.getAbsolutePath).toList)
-      reporter.printSummary
-      result(!reporter.hasErrors,
-        files.value.mkString + " compile(s)",
-        files.value.mkString + " do(es) not compile",
-        files)
+    import scala.tools.nsc.{Global}
+
+    val s = settings(outdir, classpath, usecurrentcp, unchecked,
+      deprecation, feature, fatalWarnings)
+    val reporter = new LogReporter(getClass(), s)
+    val compiler = new Global(s, reporter)
+    val run = (new compiler.Run)
+    run.compile(files.map(_.getAbsolutePath).toList)
+
+    if(reporter.hasErrors) {
+      logger.error(s"$files failed to compile")
+      CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
+    } else {
+      logger.debug(s"$files compiled")
+      CompileSuccess(reporter.loggedWarnings, run)
     }
   }
 
