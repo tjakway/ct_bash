@@ -33,9 +33,8 @@ import java.io.File
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.reflect.internal.util.Position
-import scala.tools.nsc.Settings
+import scala.tools.nsc.{GenericRunnerSettings, Settings}
 import scala.tools.nsc.reporters.AbstractReporter
-
 import scala.collection.mutable
 
 case class ScalaSource(src: String)
@@ -89,23 +88,19 @@ class LogReporter(val loggingClass: Class[_], override val settings: Settings) e
     super.warning(pos, msg)
     loggedWarnings.:+(ScalacWarning(msg))
   }
+
 }
 
-class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions] {
+object ScalaCompiler {
   import scala.tools.nsc.{Settings, GenericRunnerSettings}
   import scala.reflect.internal.util.{SourceFile, BatchSourceFile}
   import scala.tools.nsc.io.{PlainFile}
   import scala.tools.nsc.reporters.{ConsoleReporter}
 
-  val logger: Logger = LoggerFactory.getLogger(getClass())
-
-  val stdOutWriter = new OnCompilerWrite(println)
-
-
-  private lazy val bootPathList = List(jarPathOfClass("scala.tools.nsc.Main"),
-                                   jarPathOfClass("scala.Option"),
-                                   jarPathOfClass("scala.xml.Elem"),
-                                   jarPathOfClass("scala.util.parsing.combinator.Parsers"))
+  lazy val bootPathList = List(jarPathOfClass("scala.tools.nsc.Main"),
+    jarPathOfClass("scala.Option"),
+    jarPathOfClass("scala.xml.Elem"),
+    jarPathOfClass("scala.util.parsing.combinator.Parsers"))
 
   // For some reason, there's a `java.net.URLClassLoader` in the
   // classloader hierarchy only for the first specs2 example in the suite.
@@ -113,9 +108,9 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions
   // `testOptions in Test += Tests.Argument("sequential")` in `build.sbt`.
   // We assume that the current classpath doesn't change from example to
   // example in a single test suite.
-  private lazy val currentcp = {
+  lazy val currentcp = {
     val currentLoader = java.lang.Thread.currentThread.getContextClassLoader
-     currentLoader match {
+    currentLoader match {
       case cl: java.net.URLClassLoader => cl.getURLs.toList map {_.toString}
       case x =>
         // sbt 0.13 wraps classloader with ClasspathFilter
@@ -126,14 +121,14 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions
     }
   }
 
-  private def settings(outdir: String, classpath: List[String],
-      usecurrentcp: Boolean, unchecked: Boolean,
-      deprecation: Boolean, feature: Boolean, fatalWarnings: Boolean): GenericRunnerSettings = {
+  def settings(writer: String => Unit)(outdir: String, classpath: List[String],
+                       usecurrentcp: Boolean, unchecked: Boolean,
+                       deprecation: Boolean, feature: Boolean, fatalWarnings: Boolean): GenericRunnerSettings = {
     import java.io.{PrintWriter, BufferedWriter, BufferedReader, StringReader, OutputStreamWriter}
 
     val classpathList = classpath ++ (if (usecurrentcp) currentcp else Nil)
     val in = new BufferedReader(new StringReader(""))
-    val grs = new GenericRunnerSettings(stdOutWriter.write)
+    val grs = new GenericRunnerSettings(writer)
     val origBootclasspath = grs.bootclasspath.value
 
     grs.bootclasspath.value =
@@ -147,38 +142,6 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions
     grs.feature.value = feature
     grs.fatalWarnings.value = fatalWarnings
     grs
-  }
-
-  private def mkClasspath(entries:List[String]):String = {
-    def windowsFix(path:String):String =
-      if(java.io.File.separatorChar != '\\') path
-      else { // Windows
-        (if(path.startsWith("file:")) path.substring(6) else path)
-        .replace('/', java.io.File.separatorChar)
-      }
-
-    entries.distinct
-    .map(windowsFix)
-    .mkString(java.io.File.pathSeparator)
-  }
-
-  override def compile(scalaOptions: ScalaOptions): CompileOutput = {
-
-    import scala.tools.nsc.{Global}
-
-    val s = scalaOptions.toSettings
-    val reporter = new LogReporter(getClass(), s)
-    val compiler = new Global(s, reporter)
-    val run = (new compiler.Run)
-    run.compile(filesToCompile.map(_.getAbsolutePath).toList)
-
-    if(reporter.hasErrors) {
-      logger.error(s"$filesToCompile failed to compile")
-      CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
-    } else {
-      logger.debug(s"$filesToCompile compiled")
-      CompileSuccess(reporter.loggedWarnings, run)
-    }
   }
 
   def deleteAll(file: File): Boolean = {
@@ -219,6 +182,20 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions
     new BatchSourceFile(new PlainFile(file))
 
 
+  private def mkClasspath(entries:List[String]):String = {
+    def windowsFix(path:String):String =
+      if(java.io.File.separatorChar != '\\') path
+      else { // Windows
+        (if(path.startsWith("file:")) path.substring(6) else path)
+          .replace('/', java.io.File.separatorChar)
+      }
+
+    entries.distinct
+      .map(windowsFix)
+      .mkString(java.io.File.pathSeparator)
+  }
+
+
   case class ScalaOptions(outdir: String = ".",
                           classpath: List[String] = Nil,
                           usecurrentcp: Boolean = false,
@@ -227,8 +204,38 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions
                           feature: Boolean = true,
                           fatalWarnings: Boolean = true) extends CompilerOptions {
     def toSettings = {
-      settings(outdir, classpath, usecurrentcp, unchecked,
+      settings(println _)(outdir, classpath, usecurrentcp, unchecked,
         deprecation, feature, fatalWarnings)
     }
   }
+}
+
+class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaCompiler.ScalaOptions] {
+  import ScalaCompiler._
+
+  val logger: Logger = LoggerFactory.getLogger(getClass())
+
+  val stdOutWriter = new OnCompilerWrite(println)
+
+  override def compile(scalaOptions: ScalaOptions): CompileOutput = {
+
+    import scala.tools.nsc.{Global}
+
+    val s = scalaOptions.toSettings
+    val reporter = new LogReporter(getClass(), s)
+    val compiler = new Global(s, reporter)
+    val run = (new compiler.Run)
+    run.compile(filesToCompile.map(_.getAbsolutePath).toList)
+
+    if(reporter.hasErrors) {
+      logger.error(s"$filesToCompile failed to compile")
+      CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
+    } else {
+      logger.debug(s"$filesToCompile compiled")
+      CompileSuccess(reporter.loggedWarnings, run)
+    }
+  }
+
+
+
 }
