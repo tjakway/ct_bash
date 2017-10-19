@@ -144,15 +144,6 @@ object ScalaCompiler {
     grs
   }
 
-  def deleteAll(file: File): Boolean = {
-    if (file.isDirectory) {
-      val children = file.listFiles
-      if (children != null)
-        children.foreach(deleteAll(_))
-    }
-    file.delete
-  }
-
   def copyFileFromResource(source: String, dest: File) {
     val in = getClass.getResourceAsStream(source)
     val reader = new java.io.BufferedReader(new java.io.InputStreamReader(in))
