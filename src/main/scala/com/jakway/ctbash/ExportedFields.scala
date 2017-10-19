@@ -11,6 +11,7 @@ case class ExportAnnotationException(msg: String) extends RuntimeException(msg)
 object ExportedField {
 
   def hasExportAnnotation(f: Field): Boolean = {
+    //see https://stackoverflow.com/questions/3348363/checking-if-an-annotation-is-of-a-specific-type
     !f.getDeclaredAnnotations().exists(_.annotationType() == classOf[Export])
   }
 
