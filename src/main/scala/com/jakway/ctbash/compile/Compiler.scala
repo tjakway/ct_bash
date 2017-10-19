@@ -1,7 +1,7 @@
 package com.jakway.ctbash.compile
 
 
-sealed trait CompileWarning {
+trait CompileWarning {
   val description: String
 }
 
@@ -9,7 +9,7 @@ sealed trait CompileWarning {
   * errors subclass warnings because warnings can be errors depending on circumstances
   * (e.g. -Werror=...)
   */
-sealed trait CompileError extends CompileWarning
+trait CompileError extends CompileWarning
 
 
 
@@ -18,7 +18,7 @@ case object NoExportedFields extends CompileWarning {
 }
 
 sealed trait CompileOutput
-case class CompileSuccess(warnings: Seq[CompileWarning], output: String) extends CompileOutput
+case class CompileSuccess[A](warnings: Seq[CompileWarning], output: A) extends CompileOutput
 case class CompileFailed(why: Seq[CompileWarning]) extends CompileOutput
 
 
