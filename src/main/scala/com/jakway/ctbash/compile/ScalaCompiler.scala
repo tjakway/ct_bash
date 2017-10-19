@@ -226,7 +226,4 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaCompile
       CompileSuccess(reporter.loggedWarnings, run)
     }
   }
-
-
-
 }
