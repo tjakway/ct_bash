@@ -28,11 +28,51 @@
 package com.jakway.ctbash.compile
 
 
+import java.io.File
+
+import org.slf4j.{Logger, LoggerFactory}
+
+import scala.reflect.internal.util.Position
+import scala.tools.nsc.Settings
+import scala.tools.nsc.reporters.AbstractReporter
 
 case class ScalaSource(src: String)
 
 // TODO
 //case class ScalaOptions extends CompilerOptions
+
+class OnCompilerWrite(val writeOp: String => Unit) {
+  import scala.collection.mutable
+
+  val msgs: mutable.Seq[String] = mutable.Seq()
+
+  def write(s: String): Unit = {
+    msgs.:+(s)
+    writeOp(s)
+  }
+}
+
+/**
+  * translates scalac's AbstractReporter to slf4j logging
+  * @param loggingClass
+  * @param settings
+  */
+class LogReporter(val loggingClass: Class[_], override val settings: Settings) extends AbstractReporter {
+  val logger: Logger = LoggerFactory.getLogger(loggingClass)
+
+  private def getLevel(severity: Severity): String => Unit = severity match {
+        case INFO => logger.info _
+        case WARNING => logger.warn _
+        case _ => logger.info _
+      }
+
+  override def display(pos: Position, msg: String, severity: Severity): Unit = {
+    val logFunction = getLevel(severity)
+    logFunction(s"Msg@Position[$pos]: $msg")
+  }
+
+  override def displayPrompt(): Unit = {}
+}
 
 class ScalaCompiler extends Compiler[CompilerOptions] {
   import scala.tools.nsc.{Settings, GenericRunnerSettings}
@@ -40,6 +80,8 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
   import scala.tools.nsc.io.{PlainFile}
   import scala.tools.nsc.reporters.{ConsoleReporter}
 
+
+  val stdOutWriter = new OnCompilerWrite(println)
 
 
   private lazy val bootPathList = List(jarPathOfClass("scala.tools.nsc.Main"),
@@ -140,9 +182,7 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
 
     val classpathList = classpath ++ (if (usecurrentcp) currentcp else Nil)
     val in = new BufferedReader(new StringReader(""))
-    val out = new PrintWriter(new BufferedWriter(
-      new OutputStreamWriter(System.out)))
-    val grs = new GenericRunnerSettings(out.println _)
+    val grs = new GenericRunnerSettings(stdOutWriter.write)
     val origBootclasspath = grs.bootclasspath.value
 
     grs.bootclasspath.value =
