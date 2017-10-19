@@ -1,9 +1,8 @@
 package com.jakway.ctbash.compile
 
+//TODO: implement Compiler
 class Driver(val source: String) {
   lazy val (bashSrc, scalaSrc) = ScalaExtractor.extractScala(source)
-
-  def compile
 }
 
 object ScalaExtractor {

@@ -91,7 +91,7 @@ class LogReporter(val loggingClass: Class[_], override val settings: Settings) e
   }
 }
 
-class ScalaCompiler extends Compiler[CompilerOptions] {
+class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaOptions] {
   import scala.tools.nsc.{Settings, GenericRunnerSettings}
   import scala.reflect.internal.util.{SourceFile, BatchSourceFile}
   import scala.tools.nsc.io.{PlainFile}
@@ -162,7 +162,7 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
     .mkString(java.io.File.pathSeparator)
   }
 
-  def compile(scalaOptions: ScalaOptions)(files: Seq[File]): CompileOutput = {
+  override def compile(scalaOptions: ScalaOptions): CompileOutput = {
 
     import scala.tools.nsc.{Global}
 
@@ -170,13 +170,13 @@ class ScalaCompiler extends Compiler[CompilerOptions] {
     val reporter = new LogReporter(getClass(), s)
     val compiler = new Global(s, reporter)
     val run = (new compiler.Run)
-    run.compile(files.map(_.getAbsolutePath).toList)
+    run.compile(filesToCompile.map(_.getAbsolutePath).toList)
 
     if(reporter.hasErrors) {
-      logger.error(s"$files failed to compile")
+      logger.error(s"$filesToCompile failed to compile")
       CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
     } else {
-      logger.debug(s"$files compiled")
+      logger.debug(s"$filesToCompile compiled")
       CompileSuccess(reporter.loggedWarnings, run)
     }
   }
