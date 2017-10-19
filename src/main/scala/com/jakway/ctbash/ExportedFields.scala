@@ -11,13 +11,13 @@ case class ExportAnnotationException(msg: String) extends RuntimeException(msg)
 object ExportedField {
 
   def hasExportAnnotation(f: Field): Boolean = {
-    !f.getDeclaredAnnotations().filter(_.annotationType().isInstanceOf[Export]).isEmpty
+    !f.getDeclaredAnnotations().exists(_.annotationType() == classOf[Export])
   }
 
   def getExportedFields[A](c: Class[A]): Seq[ExportedField[A]] =
     c.getFields.filter(hasExportAnnotation).map(thisField => {
       val exportAnnotation =
-        {thisField.getDeclaredAnnotations.filter(_.annotationType().isInstanceOf[Export]) match {
+        {thisField.getDeclaredAnnotations.filter(_.annotationType() == classOf[Export]) match {
           case x@Seq(a) if x.length == 1 => a
           case _ => throw ExportAnnotationException("Cannot annotate a field with @Export multiple times")
         }}.asInstanceOf[Export]
