@@ -1,5 +1,6 @@
 package com.jakway.ctbash
 
+import java.lang.annotation.Annotation
 import java.lang.reflect.Field
 
 case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String)
@@ -19,7 +20,7 @@ object ExportedField {
     c.getFields.filter(hasExportAnnotation).map(thisField => {
       val exportAnnotation =
         {thisField.getDeclaredAnnotations.filter(_.annotationType() == classOf[Export]) match {
-          case x@Seq(a) if x.length == 1 => a
+          case x: Array[Annotation] if x.length == 1 => x.head
           case _ => throw ExportAnnotationException("Cannot annotate a field with @Export multiple times")
         }}.asInstanceOf[Export]
 
