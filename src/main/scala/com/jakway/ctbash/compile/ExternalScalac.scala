@@ -1,24 +1,9 @@
 package com.jakway.ctbash.compile
 
 import java.io.File
-import java.nio.file.Files
 
-class BlockingProcess(name: String, args: Seq[String]) {
-  case class Result(exitCode: Int, stdout: String, stderr: String)
+import com.jakway.ctbash.util.BlockingProcess
 
-  def run(): Result = {
-    import scala.sys.process.{Process, ProcessLogger}
-    var stdout = ""
-    var stderr = ""
-    val proc = Process(Seq(name) ++ args)
-    val procLogger = ProcessLogger(line => stdout += (line + "\n"),
-      line => stderr += (line + "\n"))
-
-    val exitCode: Int = proc.run(procLogger).exitValue()
-
-    Result(exitCode, stdout, stderr)
-  }
-}
 
 
 /**
