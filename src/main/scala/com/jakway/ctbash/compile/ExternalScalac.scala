@@ -3,37 +3,39 @@ package com.jakway.ctbash.compile
 import java.io.File
 import java.nio.file.Files
 
+class BlockingProcess(name: String, args: Seq[String]) {
+  case class Result(exitCode: Int, stdout: String, stderr: String)
+
+  def run(): Result = {
+    import scala.sys.process.{Process, ProcessLogger}
+    var stdout = ""
+    var stderr = ""
+    val proc = Process(Seq(name) ++ args)
+    val procLogger = ProcessLogger(line => stdout += (line + "\n"),
+      line => stderr += (line + "\n"))
+
+    val exitCode: Int = proc.run(procLogger).exitValue()
+
+    Result(exitCode, stdout, stderr)
+  }
+}
+
+
 /**
   *
-  * @param scalaOutputDir where to put the generated scala files
-  *                       a temp dir if None
   * @param scalacArgs
   */
-case class ExternalScalacOptions(scalaOutputDir: Option[File],
-                                 scalacArgs: Array[String]) extends CompilerOptions
+case class ExternalScalacOptions(scalacArgs: Array[String]) extends CompilerOptions
 
-class ExternalScalac(val filesToCompile: Seq[File], extraArgs: Seq[String])
+class ExternalScalac(val filesToCompile: Seq[ScalaSource], val outputDir: File, extraArgs: Seq[String])
   extends Compiler[ExternalScalacOptions] {
 
-  val tempDirPrefix = "ctbash"
 
-  lazy val outputDir = {
-    val f = Files.createTempDirectory(tempDirPrefix)
-    f.toFile.deleteOnExit()
-    f
-  }
-
-  lazy val builtinOptions = Seq[String]("-d", outputDir.toAbsolutePath.toString)
+  lazy val builtinOptions = Seq[String]("-d", outputDir.getAbsolutePath)
 
   override def compile(passedOpts: ExternalScalacOptions) = {
-    import scala.sys.process
-
     val options: Array[String] = (builtinOptions ++ passedOpts.scalacArgs).toArray
-    val scalaOutputDir = passedOpts.scalaOutputDir.getOrElse(outputDir)
 
-    /** TODO: process */
-
-    val scalac =
-
+    val res = new BlockingProcess("scalac", options).run()
   }
 }
