@@ -34,9 +34,11 @@ class ExternalScalac(val filesToCompile: Seq[ScalaSource], val outputDir: File, 
 
 
   lazy val builtinOptions = Seq[String]("-d", outputDir.getAbsolutePath)
+  val srcs = filesToCompile.map(_.src).map(f => new File(f).getAbsolutePath)
 
   override def compile(passedOpts: ExternalScalac.Options): CompileOutput = {
-    val options: Array[String] = (builtinOptions ++ passedOpts.scalacArgs).toArray
+    val options: Array[String] =
+      (builtinOptions ++ passedOpts.scalacArgs ++ srcs).toArray
 
     handleScalacRun(new BlockingProcess("scalac", options).run())
   }
