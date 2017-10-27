@@ -220,10 +220,10 @@ class ScalaCompiler(val filesToCompile: Seq[File]) extends Compiler[ScalaCompile
 
     if(reporter.hasErrors) {
       logger.error(s"$filesToCompile failed to compile")
-      CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
+      new CompileFailed(reporter.loggedWarnings ++ reporter.loggedErrors)
     } else {
       logger.debug(s"$filesToCompile compiled")
-      CompileSuccess(reporter.loggedWarnings, run)
+      new CompileSuccess(reporter.loggedWarnings, run)
     }
   }
 }
