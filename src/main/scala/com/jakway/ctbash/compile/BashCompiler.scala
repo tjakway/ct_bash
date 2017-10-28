@@ -43,6 +43,6 @@ class BashCompiler(val evaluatedFields: Seq[EvaluatedField[_ <: Object]], val ba
       }.fold("")(_ + "\n" + _)
 
       val output = header + "\n" + fieldStr + bashSource
-      CompileSuccess(warnings, output)
+      new CompileSuccess(warnings, output)
   }
 }

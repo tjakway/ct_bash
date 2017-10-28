@@ -18,8 +18,8 @@ case object NoExportedFields extends CompileWarning {
 }
 
 sealed trait CompileOutput
-case class CompileSuccess[A](warnings: Seq[CompileWarning], output: A) extends CompileOutput
-case class CompileFailed(why: Seq[CompileWarning]) extends CompileOutput
+class CompileSuccess[A](warnings: Seq[CompileWarning], output: A) extends CompileOutput
+class CompileFailed(why: Seq[CompileWarning]) extends CompileOutput
 
 
 trait CompilerOptions

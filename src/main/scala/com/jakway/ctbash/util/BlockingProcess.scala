@@ -1,7 +1,11 @@
 package com.jakway.ctbash.util
 
-class BlockingProcess(name: String, args: Seq[String]) {
+object BlockingProcess {
   case class Result(exitCode: Int, stdout: String, stderr: String)
+}
+
+class BlockingProcess(name: String, args: Seq[String]) {
+  import BlockingProcess._
 
   def run(): Result = {
     import scala.sys.process.{Process, ProcessLogger}
