@@ -8,6 +8,10 @@ import java.nio.file.{Files, Path}
 
 import com.jakway.ctbash.ExportedField
 
+/**
+  * reflection is expensive, use sparingly
+  * @param classFiles
+  */
 class Executor(val classFiles: Seq[Class[_]]) {
   import java.lang.reflect.Modifier
 
@@ -34,7 +38,7 @@ class Executor(val classFiles: Seq[Class[_]]) {
     Modifier.isPublic(m.getModifiers) &&
       Modifier.isStatic(m.getModifiers) &&
       //that return void
-      m.getReturnType == Void &&
+      m.getReturnType == Void.TYPE &&
       //that take 1 parameter
       m.getParameterCount == 1 &&
       //take an Array[String]
@@ -43,14 +47,13 @@ class Executor(val classFiles: Seq[Class[_]]) {
       m.getName == "main"
   }
 
-  def findMains(): Map[Class[_], Array[Method]] = {
-    val map = classFiles.map { c =>
-      (c, c.getDeclaredMethods())
-    }.toMap
+  def findMain(): Either[CompileError, Method] = {
+    val mainMethods = classFiles.flatMap {
+      case c: Class[_] => {
+        c.getDeclaredMethods().filter(isMain)
+      }
+    }
 
-    map.mapValues(ms => ms.filter(isMain))
-      //remove empty members
-      .filter(!_._2.isEmpty)
   }
 }
 
