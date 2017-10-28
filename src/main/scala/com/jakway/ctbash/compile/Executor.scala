@@ -17,7 +17,7 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }.toMap
   }
 
-  def checkFirstArgType(m: Method): Boolean = {
+  private def checkFirstArgType(m: Method): Boolean = {
     val firstArg = m.getParameterTypes.head
     val h = firstArg.getTypeParameters
 
@@ -29,7 +29,7 @@ class Executor(val classFiles: Seq[Class[_]]) {
       h.headOption.filter(_.getName == "java.lang.String").isDefined
   }
 
-  def isMain(m: Method): Boolean = {
+  private def isMain(m: Method): Boolean = {
     //find public static methods
     Modifier.isPublic(m.getModifiers) &&
       Modifier.isStatic(m.getModifiers) &&
@@ -43,20 +43,14 @@ class Executor(val classFiles: Seq[Class[_]]) {
       m.getName == "main"
   }
 
-  def findMain(): Option[Method] = {
+  def findMains(): Map[Class[_], Array[Method]] = {
     val map = classFiles.map { c =>
       (c, c.getDeclaredMethods())
     }.toMap
 
-    map.mapValues { methods => {
-        //find public static methods
-        methods
-          //that return void
-        .filter(m => m.getReturnType == Void)
-          //that take 1 parameter
-        .filter(m => m.getParameterCount == 1)
-      }
-    }
+    map.mapValues(ms => ms.filter(isMain))
+      //remove empty members
+      .filter(!_._2.isEmpty)
   }
 }
 
