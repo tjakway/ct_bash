@@ -3,7 +3,16 @@ package com.jakway.ctbash
 import java.lang.annotation.Annotation
 import java.lang.reflect.Field
 
-case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String)
+case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String) {
+  /**
+    * @param owningObject the field this object belongs to
+    *                     pass null if this is a static field
+    * @return
+    */
+  def evaluate(owningObject: Object): EvaluatedField[A] = {
+    EvaluatedField(this, field.get(owningObject).toString)
+  }
+}
 
 case class EvaluatedField[A](e: ExportedField[A], finalValue: String)
 
