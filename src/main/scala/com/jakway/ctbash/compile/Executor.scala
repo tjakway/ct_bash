@@ -7,6 +7,16 @@ import java.nio.channels.FileChannel
 import java.nio.file.{Files, Path}
 
 import com.jakway.ctbash.ExportedField
+import org.slf4j.{Logger, LoggerFactory}
+
+case class MultipleMainMethods(c: Class[_]) extends CompileError {
+  override val description =
+    s"Multiple main methods found, one belongs to ${c.getCanonicalName}."
+}
+
+case object NoMainMethod extends CompileError {
+  override val description: String = "No main method found."
+}
 
 /**
   * reflection is expensive, use sparingly
@@ -14,6 +24,8 @@ import com.jakway.ctbash.ExportedField
   */
 class Executor(val classFiles: Seq[Class[_]]) {
   import java.lang.reflect.Modifier
+
+  val logger: Logger = LoggerFactory.getLogger(getClass())
 
   val exportedFields: Map[Class[_], Seq[ExportedField[_]]] = {
     classFiles.map { c =>
@@ -47,13 +59,43 @@ class Executor(val classFiles: Seq[Class[_]]) {
       m.getName == "main"
   }
 
-  def findMain(): Either[CompileError, Method] = {
-    val mainMethods = classFiles.flatMap {
-      case c: Class[_] => {
-        c.getDeclaredMethods().filter(isMain)
+  private def foldFindMain(acc: Either[Seq[CompileError], Option[Method]], c: Class[_]):
+    Either[Seq[CompileError], Option[Method]] = {
+
+    lazy val mainMethods = c.getDeclaredMethods().filter(isMain)
+
+    acc match {
+        //if we already found errors keep going to see if we can find multiple main methods
+      case Left(errs) => {
+        if(mainMethods.length > 0 && errs.exists(_.isInstanceOf[MultipleMainMethods])) {
+          Left(errs ++ Seq(MultipleMainMethods(c)))
+        } else {
+          Left(errs)
+        }
+      }
+        //if we've already found a main method we shouldn't find another
+      case Right(Some(m)) if mainMethods.length > 0 => {
+        Left(Seq(MultipleMainMethods(m.getDeclaringClass), MultipleMainMethods(c)))
+      }
+        //finding >1 main method in a single class is always an error
+      case _ if mainMethods.length > 1 => {
+        //should never happen
+        logger.error(s"Multiple main methods declared in class ${c.getCanonicalName}--should never happen")
+        Left(mainMethods.map(_ => MultipleMainMethods(c)))
+      }
+        //otherwise check if we've found a main method
+      case Right(None) => {
+        Right(mainMethods.headOption)
       }
     }
+  }
 
+  def findMain(): Either[Seq[CompileError], Method] = {
+    classFiles.foldLeft(Right(None))(foldFindMain) match {
+      case Right(None) => Left(Seq(NoMainMethod))
+      case Right(Some(m)) => Right(m)
+      case Left(a) => Left(a)
+    }
   }
 }
 
