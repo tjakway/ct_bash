@@ -9,6 +9,9 @@ import java.nio.file.{Files, Path}
 import com.jakway.ctbash.ExportedField
 import org.slf4j.{Logger, LoggerFactory}
 
+
+/* Error classes */
+
 case class MultipleMainMethods(c: Class[_]) extends CompileError {
   override val description =
     s"Multiple main methods found, one belongs to ${c.getCanonicalName}."
@@ -17,6 +20,8 @@ case class MultipleMainMethods(c: Class[_]) extends CompileError {
 case object NoMainMethod extends CompileError {
   override val description: String = "No main method found."
 }
+
+
 
 /**
   * reflection is expensive, use sparingly
@@ -34,6 +39,8 @@ class Executor(val classFiles: Seq[Class[_]]) {
   }
 
   private def checkFirstArgType(m: Method): Boolean = {
+    import scala.language.existentials
+
     val firstArg = m.getParameterTypes.head
     val h = firstArg.getTypeParameters
 
@@ -91,7 +98,10 @@ class Executor(val classFiles: Seq[Class[_]]) {
   }
 
   def findMain(): Either[Seq[CompileError], Method] = {
-    classFiles.foldLeft(Right(None))(foldFindMain) match {
+    //scala's type inference sucks for the fold accumulator
+    val empty: Either[Seq[CompileError], Option[Method]] = Right(None)
+
+    classFiles.foldLeft(empty)(foldFindMain) match {
       case Right(None) => Left(Seq(NoMainMethod))
       case Right(Some(m)) => Right(m)
       case Left(a) => Left(a)
