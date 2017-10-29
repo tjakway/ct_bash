@@ -1,6 +1,7 @@
 name := "ctbash"
 version := "1.0"
 scalaVersion := "2.12.3"
+ 
 
 
 resolvers += Resolver.typesafeIvyRepo("releases")
@@ -24,4 +25,4 @@ libraryDependencies ++=
 excludeFilter in unmanagedSources := HiddenFileFilter || "snippets.scala"
 
 //enable more warnings
-scalacOptions in compile ++= Seq("-unchecked", "-deprecation", "-feature")
+scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature")

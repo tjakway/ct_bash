@@ -1,13 +1,16 @@
 package com.jakway.ctbash.compile
 
-import java.io.{File, FileInputStream, FilenameFilter}
+import java.io._
 import java.lang.reflect.Method
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.{Files, Path}
 
 import com.jakway.ctbash.ExportedField
+import com.jakway.ctbash.compile.Executor.InvokeResult
 import org.slf4j.{Logger, LoggerFactory}
+
+import scala.util.Try
 
 
 /* Error classes */
@@ -22,6 +25,15 @@ case object NoMainMethod extends CompileError {
 }
 
 
+case class MainThrewException(e: Exception) extends CompileError {
+  override val description = s"The main method threw an exception during evaluation: $e"
+}
+
+
+object Executor {
+
+  case class InvokeResult[A](stdout: String, returned: A)
+}
 
 /**
   * reflection is expensive, use sparingly
@@ -108,9 +120,48 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }
   }
 
+  /**
+    * Redirect stdout while calling the passed Method through inflection
+    * restore it on return or error
+    * see https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html#invoke-java.lang.Object-java.lang.Object...-
+    *
+    * Note that the return value will be case to A
+    */
+  def invokeWithRedirect[A](m: Method, o: Object)(args: Object*): InvokeResult[A] = {
+    try {
+      //redirect stdout
+      //see https://stackoverflow.com/questions/4183408/redirect-stdout-to-a-string-in-java
+      import java.io.ByteArrayOutputStream
+      val baos = new ByteArrayOutputStream()
+      //don't rely on system encoding
+      System.setOut(new PrintStream(baos, false, "UTF-8"))
 
-  def evaluateMain(): Either[Seq[CompileError], Seq[ExportedField[_]]] = {
+      val ret = m.invoke(m, o, args)
 
+      //convert stdout back to a string
+      baos.flush()
+      val stdout = baos.toString("UTF-8")
+
+      //ByteArrayOutputStreams don't have to be closed
+
+      InvokeResult(stdout, ret.asInstanceOf[A])
+    }
+    finally {
+      //restore stdout
+      System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)))
+    }
+  }
+
+  def evaluateMain(args: Array[String]): Either[Seq[CompileError], Seq[ExportedField[_]]] = {
+    import com.jakway.ctbash.util.Util._
+    for {
+      mainMethod <- findMain().right
+      //main is static so it doesn't take an object to invoke it
+      invokeRes <- tryToEither(Try(invokeWithRedirect(mainMethod, null)(args)))
+
+    } yield {
+      ???
+    }
   }
 }
 
