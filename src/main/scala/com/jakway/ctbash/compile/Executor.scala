@@ -107,6 +107,11 @@ class Executor(val classFiles: Seq[Class[_]]) {
       case Left(a) => Left(a)
     }
   }
+
+
+  def evaluateMain(): Either[Seq[CompileError], Seq[ExportedField[_]]] = {
+
+  }
 }
 
 
