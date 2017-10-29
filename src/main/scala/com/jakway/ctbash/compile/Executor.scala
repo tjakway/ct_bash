@@ -6,8 +6,8 @@ import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.{Files, Path}
 
-import com.jakway.ctbash.ExportedField
-import com.jakway.ctbash.compile.Executor.InvokeResult
+import com.jakway.ctbash.{EvaluatedField, ExportedField}
+import com.jakway.ctbash.compile.Executor.{EvaluateResult, InvokeResult}
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.Try
@@ -33,6 +33,13 @@ case class MainThrewException(e: Exception) extends CompileError {
 object Executor {
 
   case class InvokeResult[A](stdout: String, returned: A)
+
+  /**
+    * main in Java can't return a value
+    * @param stdout
+    * @param evaluatedFields
+    */
+  case class EvaluateResult(stdout: String, evaluatedFields: Seq[EvaluatedField[_]])
 }
 
 /**
@@ -44,11 +51,8 @@ class Executor(val classFiles: Seq[Class[_]]) {
 
   val logger: Logger = LoggerFactory.getLogger(getClass())
 
-  val exportedFields: Map[Class[_], Seq[ExportedField[_]]] = {
-    classFiles.map { c =>
-      (c, ExportedField.getExportedFields(c))
-    }.toMap
-  }
+  val exportedFields: Seq[ExportedField[_]] =
+    classFiles.flatMap(ExportedField.getExportedFields(_))
 
   private def checkFirstArgType(m: Method): Boolean = {
     import scala.language.existentials
@@ -152,15 +156,15 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }
   }
 
-  def evaluateMain(args: Array[String]): Either[Seq[CompileError], Seq[ExportedField[_]]] = {
+  def evaluateMain(args: Array[String]): Either[Seq[CompileError], EvaluateResult] = {
     import com.jakway.ctbash.util.Util._
     for {
       mainMethod <- findMain().right
       //main is static so it doesn't take an object to invoke it
       invokeRes <- tryToEither(Try(invokeWithRedirect(mainMethod, null)(args)))
-
+      evaluatedFields <- tryToEither(Try(exportedFields.map(_.evaluate(null))))
     } yield {
-      ???
+      EvaluateResult(invokeRes.stdout, evaluatedFields)
     }
   }
 }

@@ -3,14 +3,26 @@ package com.jakway.ctbash
 import java.lang.annotation.Annotation
 import java.lang.reflect.Field
 
+import com.jakway.ctbash.compile.CompileError
+import com.jakway.ctbash.util.Util
+
+import scala.util.{Failure, Success, Try}
+
+case class FieldEvaluationError[A](f: ExportedField[A], t: Throwable) extends CompileError {
+  override val description: String = s"Error while evaluating field ${f.field.getName} in class ${f.belongsTo.getCanonicalName}: ${Util.throwableToString(t)}"
+}
+
 case class ExportedField[A](belongsTo: Class[A], field: Field, exportAs: String) {
   /**
     * @param owningObject the field this object belongs to
     *                     pass null if this is a static field
     * @return
     */
-  def evaluate(owningObject: Object): EvaluatedField[A] = {
-    EvaluatedField(this, field.get(owningObject).toString)
+  def evaluate(owningObject: Object): Either[CompileError, EvaluatedField[A]] = {
+    Try(EvaluatedField(this, field.get(owningObject).toString)) match {
+      case Success(e) => Right(e)
+      case Failure(t) => Left(FieldEvaluationError(this, t))
+    }
   }
 }
 
