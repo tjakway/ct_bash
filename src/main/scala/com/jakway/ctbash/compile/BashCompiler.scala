@@ -1,6 +1,6 @@
 package com.jakway.ctbash.compile
 
-import com.jakway.ctbash.EvaluatedField
+import com.jakway.ctbash.compile.EvaluatedField
 
 case class BashSource(src: String)
 
