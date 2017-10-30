@@ -6,7 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 import java.nio.file.{Files, Path}
 
-import com.jakway.ctbash.{EvaluatedField, ExportedField}
+import com.jakway.ctbash.EvaluatedField
 import com.jakway.ctbash.compile.Executor.{EvaluateResult, InvokeResult}
 import org.slf4j.{Logger, LoggerFactory}
 

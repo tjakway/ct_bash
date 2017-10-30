@@ -1,9 +1,9 @@
-package com.jakway.ctbash
+package com.jakway.ctbash.compile
 
 import java.lang.annotation.Annotation
 import java.lang.reflect.Field
 
-import com.jakway.ctbash.compile.CompileError
+import com.jakway.ctbash._
 import com.jakway.ctbash.util.Util
 
 import scala.util.{Failure, Success, Try}
