@@ -2,15 +2,13 @@ package com.jakway.ctbash.compile
 
 import java.io._
 import java.lang.reflect.Method
-import java.nio.ByteBuffer
-import java.nio.channels.FileChannel
 import java.nio.file.{Files, Path}
 
-import com.jakway.ctbash.EvaluatedField
 import com.jakway.ctbash.compile.Executor.{EvaluateResult, InvokeResult}
+import com.jakway.ctbash.util.Util
 import org.slf4j.{Logger, LoggerFactory}
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 
 /* Error classes */
@@ -25,21 +23,15 @@ case object NoMainMethod extends CompileError {
 }
 
 
-case class MainThrewException(e: Exception) extends CompileError {
-  override val description = s"The main method threw an exception during evaluation: $e"
+case class MainThrewException(t: Throwable) extends CompileError {
+  val tStr = Util.throwableToString(t)
+  override val description = s"The main method threw an exception during evaluation: $tStr"
 }
 
 
 object Executor {
 
   case class InvokeResult[A](stdout: String, returned: A)
-
-  /**
-    * main in Java can't return a value
-    * @param stdout
-    * @param evaluatedFields
-    */
-  case class EvaluateResult(stdout: String, evaluatedFields: Seq[EvaluatedField[_]])
 }
 
 /**
@@ -156,16 +148,21 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }
   }
 
-  def evaluateMain(args: Array[String]): Either[Seq[CompileError], EvaluateResult] = {
-    import com.jakway.ctbash.util.Util._
+  def evaluateMain(args: Array[String]): Either[Seq[CompileError], String] = {
     for {
       mainMethod <- findMain().right
       //main is static so it doesn't take an object to invoke it
-      invokeRes <- tryToEither(Try(invokeWithRedirect(mainMethod, null)(args)))
-      evaluatedFields <- tryToEither(Try(exportedFields.map(_.evaluate(null))))
+      invokeRes <- Try(invokeWithRedirect(mainMethod, null)(args)) match {
+        case Success(a) => Right(a)
+        case Failure(ex) => Left(Seq(MainThrewException(ex)))
+      }
     } yield {
-      EvaluateResult(invokeRes.stdout, evaluatedFields)
+      invokeRes.stdout
     }
+  }
+
+  def evaluateFields() = {
+
   }
 }
 
