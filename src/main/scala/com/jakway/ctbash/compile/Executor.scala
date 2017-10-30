@@ -4,7 +4,7 @@ import java.io._
 import java.lang.reflect.Method
 import java.nio.file.{Files, Path}
 
-import com.jakway.ctbash.compile.Executor.{EvaluateResult, InvokeResult}
+import com.jakway.ctbash.compile.Executor.InvokeResult
 import com.jakway.ctbash.util.Util
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -161,7 +161,26 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }
   }
 
-  def evaluateFields() = {
+  def evaluateFields(): Either[Seq[CompileError], Seq[EvaluatedField[_]]] = {
+    val empty: Either[Seq[CompileError], Seq[EvaluatedField[_]]] = Right(Seq())
+    exportedFields.foldLeft(empty) {
+
+      case (Left(errs), thisField) => {
+        //if there's already been an error, evaluate this field anyway in case
+        //we can get another error
+        thisField.evaluate(null) match {
+          case Left(thisFieldErr) => Left(errs.+:(thisFieldErr))
+            //if there's already been an error and this field is OK, ignore it
+          case Right(_) => Left(errs)
+        }
+      }
+      case (Right(fields), thisField) => {
+        thisField.evaluate(null) match {
+          case Left(thisFieldErr) => Left(Seq(thisFieldErr))
+          case Right(res) => Right(fields.+:(res))
+        }
+      }
+    }
 
   }
 }
