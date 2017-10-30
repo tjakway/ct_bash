@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 //only fields can be exported
 @Target(ElementType.FIELD)
-public @interface Export {
+public @interface export {
     String exportAs() default "";
 }

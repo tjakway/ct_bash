@@ -14,7 +14,7 @@ trait CompileError extends CompileWarning
 
 
 case object NoExportedFields extends CompileWarning {
-  override val description = "Your scala source doesn't export any fields, did you forget any @Export annotations?"
+  override val description = "Your scala source doesn't export any fields, did you forget any @export annotations?"
 }
 
 sealed trait CompileOutput

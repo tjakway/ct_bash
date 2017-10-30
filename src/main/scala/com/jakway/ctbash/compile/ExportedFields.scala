@@ -34,16 +34,16 @@ object ExportedField {
 
   def hasExportAnnotation(f: Field): Boolean = {
     //see https://stackoverflow.com/questions/3348363/checking-if-an-annotation-is-of-a-specific-type
-    !f.getDeclaredAnnotations().exists(_.annotationType() == classOf[Export])
+    !f.getDeclaredAnnotations().exists(_.annotationType() == classOf[export])
   }
 
   def getExportedFields[A](c: Class[A]): Seq[ExportedField[A]] =
     c.getFields.filter(hasExportAnnotation).map(thisField => {
       val exportAnnotation =
-        {thisField.getDeclaredAnnotations.filter(_.annotationType() == classOf[Export]) match {
+        {thisField.getDeclaredAnnotations.filter(_.annotationType() == classOf[export]) match {
           case x: Array[Annotation] if x.length == 1 => x.head
-          case _ => throw ExportAnnotationException("Cannot annotate a field with @Export multiple times")
-        }}.asInstanceOf[Export]
+          case _ => throw ExportAnnotationException("Cannot annotate a field with @export multiple times")
+        }}.asInstanceOf[export]
 
       //if the user didn't specify what the field should be named in bash then give it the same name
       //it has in scala
