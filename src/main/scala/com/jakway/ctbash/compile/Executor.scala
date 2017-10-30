@@ -43,8 +43,10 @@ class Executor(val classFiles: Seq[Class[_]]) {
 
   val logger: Logger = LoggerFactory.getLogger(getClass())
 
-  val exportedFields: Seq[ExportedField[_]] =
-    classFiles.flatMap(ExportedField.getExportedFields(_))
+  //need to explicitly remove parameterized types from ExportedField
+  val exportedFields: Seq[ExportedField[Any]] =
+    classFiles.flatMap(ExportedField.getExportedFields(_)
+      .asInstanceOf[Seq[ExportedField[Any]]])
 
   private def checkFirstArgType(m: Method): Boolean = {
     import scala.language.existentials
