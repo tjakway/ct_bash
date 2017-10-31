@@ -48,7 +48,7 @@ class ErrorChecks(val source: String) {
     mkCheckRegex("""(?siU)@scala\s*""".r,
       OnlyScalaTag)
 
-  def checkAll: Seq[ParserError] = {
+  def checkAll(): Seq[ParserError] = {
     val empty: Seq[ParserError] = Seq()
 
     //TODO: add checks to this list
@@ -71,41 +71,49 @@ object ScalaExtractor {
     * @return Option[src] in case there isn't any of that source, in which case we can skip compilation
     */
   def extractScala(src: String):
-    Either[ParserError, (Option[BashSource], Option[ScalaSource])] = {
+    Either[Seq[ParserError], (Option[BashSource], Option[ScalaSource])] = {
 
-    def helper(accBash: Seq[String], accScala: Seq[String])(p: String): (Seq[String], Seq[String]) = {
-      rgx.findFirstMatchIn(p) match {
-        case Some(m) => {
-          //regex groups apparently count from 1, see https://stackoverflow.com/questions/3050907/scala-capture-group-using-regex
-          val (before, scala, after) = (Option(m.group(1)), Option(m.group(2)), Option(m.group(3)))
-
-          val newAccBash  = accBash  :+ before.getOrElse("")
-          val newAccScala = accScala :+ scala.getOrElse("")
-
-          val rest = after.getOrElse("")
-          if(rest.isEmpty) {
-            (newAccBash, newAccScala)
-          }
-          else {
-            helper(newAccBash, newAccScala)(rest)
-          }
-        }
-        case None => (accBash, accScala)
-      }
+    //check for any parser errors before doing further work
+    val errors = new ErrorChecks(src).checkAll()
+    if(!errors.isEmpty) {
+      Left(errors)
     }
+      //proceed with parsing
+    else {
+      def helper(accBash: Seq[String], accScala: Seq[String])(p: String): (Seq[String], Seq[String]) = {
+        rgx.findFirstMatchIn(p) match {
+          case Some(m) => {
+            //regex groups apparently count from 1, see https://stackoverflow.com/questions/3050907/scala-capture-group-using-regex
+            val (before, scala, after) = (Option(m.group(1)), Option(m.group(2)), Option(m.group(3)))
 
-    val (bash, scala) = helper(Seq(), Seq())(src)
+            val newAccBash = accBash :+ before.getOrElse("")
+            val newAccScala = accScala :+ scala.getOrElse("")
 
-    def filterConcat[A](x: Seq[String])(f: String => A): Option[A] =
-      Option(x)
-        //return None if the Seq is empty
-        .filter(!_.isEmpty)
-        //join the sources with newlines
-        .map(_.fold("")(_ + "\n" + _))
-        //apply the constructor
-        .map(f)
+            val rest = after.getOrElse("")
+            if (rest.isEmpty) {
+              (newAccBash, newAccScala)
+            }
+            else {
+              helper(newAccBash, newAccScala)(rest)
+            }
+          }
+          case None => (accBash, accScala)
+        }
+      }
+
+      val (bash, scala) = helper(Seq(), Seq())(src)
+
+      def filterConcat[A](x: Seq[String])(f: String => A): Option[A] =
+        Option(x)
+          //return None if the Seq is empty
+          .filter(!_.isEmpty)
+          //join the sources with newlines
+          .map(_.fold("")(_ + "\n" + _))
+          //apply the constructor
+          .map(f)
 
 
-    (filterConcat(bash)(BashSource), filterConcat(scala)(ScalaSource))
+      Right((filterConcat(bash)(BashSource), filterConcat(scala)(ScalaSource)))
+    }
   }
 }

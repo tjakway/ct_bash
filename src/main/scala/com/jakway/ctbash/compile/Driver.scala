@@ -6,7 +6,7 @@ import com.jakway.ctbash.parser.ScalaExtractor
 
 //TODO: implement Compiler
 class Driver(val source: String) {
-  lazy val (bashSrc, scalaSrc) = ScalaExtractor.extractScala(source)
+  //lazy val (bashSrc, scalaSrc) = ScalaExtractor.extractScala(source)
 
 
   //TODO: make outputDir a parameter
