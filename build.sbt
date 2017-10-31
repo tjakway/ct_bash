@@ -12,8 +12,6 @@ libraryDependencies ++=
       "org.scala-lang.modules" % "scala-parser-combinators_2.12" % "1.0.6",
       "org.slf4j" % "slf4j-parent" % "1.7.6",
       "ch.qos.logback"  %  "logback-classic"    % "1.2.1",
-      // % test declares it as a test-only dependency
-      //"org.specs2" % "specs2_2.12" % "3.8.9" % "test",
       "com.github.scopt" %% "scopt" % "3.5.0",
       "org.scala-lang" % "scala-compiler" % "2.12.3"
     )
