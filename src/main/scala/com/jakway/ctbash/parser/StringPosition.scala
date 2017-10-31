@@ -7,7 +7,9 @@ import scala.util.matching.Regex.Match
   * @param line line number, _starting from 1_
   * @param pos index _in that line_, starting from 1
   */
-case class StringPosition(line: Int, pos: Int)
+case class StringPosition(line: Int, pos: Int) {
+  override def toString: String = s"line: $line, pos: $pos"
+}
 
 object StringPosition {
 
@@ -36,7 +38,7 @@ object StringPosition {
     */
   def matchToStringPosition(ranges: Map[Int, (Int, Int)])(m: Match):
     (StringPosition, StringPosition) = {
-    val l = lookupStringPosition(ranges)
+    val l = lookupStringPosition(ranges) _
     (for {
       start <- l(m.start)
       end <- l(m.end)
@@ -80,4 +82,7 @@ object StringPosition {
       }
     }.toMap
   }
+
+  def fmt(where: (StringPosition, StringPosition)): String =
+    s"(${where._1}, ${where._2})"
 }

@@ -1,6 +1,50 @@
 package com.jakway.ctbash.parser
 
-import com.jakway.ctbash.compile.{BashSource, ScalaSource}
+import com.jakway.ctbash.compile.{BashSource, CompileError, ScalaSource}
+import com.jakway.ctbash.parser.ParserError.ScalaTagWithoutBraces
+
+import scala.util.matching.Regex
+
+sealed trait ParserError extends CompileError {
+  val where: (StringPosition, StringPosition)
+}
+
+object ParserError {
+  case class ScalaTagWithoutBraces(override val where: (StringPosition, StringPosition)) extends ParserError {
+    override val description: String = s"Scala tag found without closing braces at ${StringPosition.fmt(where)} (did you forget to add them?)"
+  }
+}
+
+class ErrorChecks(val source: String) {
+  import ParserError._
+
+  type CheckRegex = String => Seq[ParserError]
+
+  val ranges = StringPosition.lineNumberRanges(source)
+
+  def mkCheckRegex(r: Regex, f: ((StringPosition, StringPosition)) => ParserError):
+    CheckRegex = { s =>
+    val matches = r.findAllMatchIn(s)
+    if(matches.isEmpty)
+      Seq()
+    else {
+      //return all errors found by this error checker
+      StringPosition.matchesToStringPosition(source, matches, Some(ranges))
+        .map(f(_))
+        .toSeq
+    }
+  }
+
+  val scalaTagWithoutBraces: CheckRegex =
+    mkCheckRegex("""(?siU)@scala(?<=\s*[\p{Alnum}\p{Punct}]+)""".r,
+      ScalaTagWithoutBraces)
+
+  //TODO
+  def checkAll: Seq[ParserError] = ???
+
+  //run all the error checks
+  def apply = ???
+}
 
 object ScalaExtractor {
   val rgx = """(.*)@scala\s*{(.*)}(.*)""".r
@@ -13,7 +57,8 @@ object ScalaExtractor {
     * @param src
     * @return Option[src] in case there isn't any of that source, in which case we can skip compilation
     */
-  def extractScala(src: String): (Option[BashSource], Option[ScalaSource]) = {
+  def extractScala(src: String):
+    Either[ParserError, (Option[BashSource], Option[ScalaSource])] = {
 
     def helper(accBash: Seq[String], accScala: Seq[String])(p: String): (Seq[String], Seq[String]) = {
       rgx.findFirstMatchIn(p) match {
