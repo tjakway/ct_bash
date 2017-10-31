@@ -13,6 +13,11 @@ object ParserError {
   case class ScalaTagWithoutBraces(override val where: (StringPosition, StringPosition)) extends ParserError {
     override val description: String = s"Scala tag found without closing braces at ${StringPosition.fmt(where)} (did you forget to add them?)"
   }
+
+  case class OnlyScalaTag(override val where: (StringPosition, StringPosition))
+    extends ParserError {
+    override val description: String = s"Only an empty @scala tag was found"
+  }
 }
 
 class ErrorChecks(val source: String) {
@@ -38,6 +43,10 @@ class ErrorChecks(val source: String) {
   val scalaTagWithoutBraces: CheckRegex =
     mkCheckRegex("""(?siU)@scala(?<=\s*[\p{Alnum}\p{Punct}]+)""".r,
       ScalaTagWithoutBraces)
+
+  val onlyScalaTag: CheckRegex =
+    mkCheckRegex("""(?siU)@scala\s*""".r,
+      OnlyScalaTag)
 
   //TODO
   def checkAll: Seq[ParserError] = ???
