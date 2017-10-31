@@ -22,10 +22,10 @@ object StringPosition {
   val newlineRegex = newline.r
 
 
-  def matchesToStringPosition(source: String, ms: Iterator[Match]):
+  def matchesToStringPosition(source: String, ms: Iterator[Match], ranges: Option[Map[Int, (Int, Int)]] = None):
     Iterator[(StringPosition, StringPosition)] = {
-    val ranges = lineNumberRanges(source)
-    ms.map(matchToStringPosition(ranges))
+    //the user can cache ranges by passing them explicitly
+    ms.map(matchToStringPosition(ranges.getOrElse(lineNumberRanges(source))))
   }
 
 
