@@ -48,11 +48,15 @@ class ErrorChecks(val source: String) {
     mkCheckRegex("""(?siU)@scala\s*""".r,
       OnlyScalaTag)
 
-  //TODO
-  def checkAll: Seq[ParserError] = ???
+  def checkAll: Seq[ParserError] = {
+    val empty: Seq[ParserError] = Seq()
 
-  //run all the error checks
-  def apply = ???
+    //TODO: add checks to this list
+    Seq(scalaTagWithoutBraces, onlyScalaTag)
+      .foldLeft(empty) {
+      case (acc, thisCheck) => acc ++ thisCheck(source)
+    }
+  }
 }
 
 object ScalaExtractor {
