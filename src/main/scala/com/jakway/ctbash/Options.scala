@@ -3,6 +3,8 @@ package com.jakway.ctbash
 import java.io.File
 import java.nio.file.Files
 
+import com.jakway.ctbash.compile.ExternalScalac
+
 object Options {
   //TODO: check passed options
 
@@ -11,7 +13,8 @@ object Options {
     Options(
       outputDir.map(new File(_)).getOrElse(outputDirName),
       intermediateDir.map(new File(_)).getOrElse(tempDir()),
-      runMain
+      runMain,
+      ExternalScalac.Options(Array())
     )
   }
 
@@ -31,4 +34,7 @@ object Options {
   *
   * @param runMain
   */
-case class Options(outputDir: File, intermediateDir: File, runMain: Boolean)
+case class Options(outputDir: File,
+                   intermediateDir: File,
+                   runMain: Boolean,
+                   scalacOptions: ExternalScalac.Options)
