@@ -3,7 +3,6 @@ version := "1.0"
 scalaVersion := "2.12.3"
  
 
-
 resolvers += Resolver.typesafeIvyRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
@@ -14,7 +13,7 @@ libraryDependencies ++=
       "ch.qos.logback"  %  "logback-classic"    % "1.2.1",
       "com.github.scopt" %% "scopt" % "3.5.0",
       "org.scala-lang" % "scala-compiler" % "2.12.3",
-      "org.scalaz" % "scalaz_2.12" % "7.2.16",
+      "org.scalaz" %% "scalaz-core" % "7.2.16",
 
       //testing dependencies
       "org.scalactic" %% "scalactic" % "3.0.4" % "test",
