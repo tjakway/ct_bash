@@ -6,7 +6,7 @@ import org.slf4j.Logger
 
 import scala.util.{Failure, Success, Try}
 import scalaz.Alpha.{E, T}
-import scalaz.Monoid
+import scalaz.{Equal, Monoid}
 
 object Util {
   def collapseEithers[T](in: Seq[Either[String, T]]): Either[String, Seq[T]] = {
@@ -21,7 +21,7 @@ object Util {
     }
   }
 
-  def accumulateEithers[E: Monoid, T: Monoid](in: Seq[Either[E, T]]):
+  def accumulateEithers[E: Monoid, T: Monoid](in: Seq[Either[E, T]])(implicit e: Equal[E]):
     Either[E, T] = {
     import scalaz._
     import scalaz.syntax.monoid._

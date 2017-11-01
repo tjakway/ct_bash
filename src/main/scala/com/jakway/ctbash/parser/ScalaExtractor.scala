@@ -2,8 +2,10 @@ package com.jakway.ctbash.parser
 
 import com.jakway.ctbash.compile.{BashSource, CompileError, ScalaSource}
 import com.jakway.ctbash.parser.ParserError.ScalaTagWithoutBraces
+import com.jakway.ctbash.util.Util
 
 import scala.util.matching.Regex
+import scalaz.{Equal, Monoid}
 
 sealed trait ParserError extends CompileError {
   val where: (StringPosition, StringPosition)
@@ -64,6 +66,24 @@ object ScalaExtractor {
 
   def hasScalaTag(src: String): Boolean =
     src.contains("@scala")
+
+
+  def extractScala(srcs: Vector[String]): Either[Vector[ParserError],
+    Vector[(Option[BashSource], Option[ScalaSource])]] = {
+
+    import scalaz._
+    import scalaz.std.AllInstances._
+
+    //WTF scalaz?
+    implicit val e = new Equal[Vector[ParserError]] {
+      override def equal(a1: Vector[ParserError], a2: Vector[ParserError]) = a1 == a2
+    }
+
+    Util.accumulateEithers(srcs.map(s => extractScala(s) match {
+      case Left(e) => Left(e.toVector)
+      case Right(z) => Right(Vector(z))
+    }))
+  }
 
   /**
     *
