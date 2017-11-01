@@ -14,15 +14,4 @@ class Driver(val source: String) {
       ???
     }
   }
-
-  def apply() = run()
-
-  //TODO: make outputDir a parameter
-  val tempDirPrefix = "ctbash"
-  lazy val outputDir = {
-    val f = Files.createTempDirectory(tempDirPrefix)
-    f.toFile.deleteOnExit()
-    f
-  }
-
 }
