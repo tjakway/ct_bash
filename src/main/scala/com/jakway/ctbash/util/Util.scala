@@ -5,6 +5,8 @@ import java.io.{File, PrintWriter, StringWriter}
 import org.slf4j.Logger
 
 import scala.util.{Failure, Success, Try}
+import scalaz.Alpha.{E, T}
+import scalaz.Monoid
 
 object Util {
   def collapseEithers[T](in: Seq[Either[String, T]]): Either[String, Seq[T]] = {
@@ -16,6 +18,39 @@ object Util {
 
         case (Right(group), Right(a)) => Right(group :+ a)
       }
+    }
+  }
+
+  def accumulateEithers[E: Monoid, T: Monoid](in: Seq[Either[E, T]]):
+    Either[E, T] = {
+    import scalaz._
+    import scalaz.syntax.monoid._
+
+    val empty: (E, T) = (Monoid[E].zero, Monoid[T].zero)
+
+    val (errsAcc, resAcc) = in.foldLeft(empty) {
+      //accumulate errors
+      case ((errsAcc, resAcc), Left(elem)) => {
+        (errsAcc mappend elem, resAcc)
+      }
+        //if we haven't found an error, accumulate Right elements
+      case ((errsAcc, resAcc), Right(elem))
+        if errsAcc.isMZero => {
+        (errsAcc, resAcc.mappend(elem))
+      }
+        //if we've found an error, skip the rest of the Right elements
+      case ((errsAcc, resAcc), Right(elem))
+        if !errsAcc.isMZero => {
+        (errsAcc, resAcc)
+      }
+    }
+
+    //return accumulated errors if there are any
+    if(!errsAcc.isMZero) {
+      Left(errsAcc)
+      //otherwise return accumulated elements
+    } else {
+      Right(resAcc)
     }
   }
 
