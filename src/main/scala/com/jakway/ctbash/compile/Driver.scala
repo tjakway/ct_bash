@@ -13,7 +13,6 @@ class Driver(val opts: GeneralOptions, val sourceFiles: Vector[File]) {
 
   def run() = {
     for {
-      //TODO: write collapseEithers with a generic error type
       srcs <- ScalaExtractor.extractScala(sources)
 
 
