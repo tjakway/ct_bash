@@ -25,6 +25,8 @@ object ExternalScalac {
 }
 
 
+
+//TODO: remove extraArgs since we pass them in compile()
 class ExternalScalac(val filesToCompile: Seq[ScalaSource], val outputDir: File, extraArgs: Seq[String])
   extends Compiler[ExternalScalac.Options] {
   import BlockingProcess.Result

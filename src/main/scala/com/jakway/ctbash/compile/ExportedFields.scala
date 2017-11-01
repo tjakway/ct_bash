@@ -37,7 +37,7 @@ object ExportedField {
     !f.getDeclaredAnnotations().exists(_.annotationType() == classOf[export])
   }
 
-  def getExportedFields[A](c: Class[A]): Seq[ExportedField[A]] =
+  def getExportedFields[A](c: Class[A]): Vector[ExportedField[A]] =
     c.getFields.filter(hasExportAnnotation).map(thisField => {
       val exportAnnotation =
         {thisField.getDeclaredAnnotations.filter(_.annotationType() == classOf[export]) match {
@@ -52,5 +52,5 @@ object ExportedField {
         .getOrElse(thisField.getName)
 
       ExportedField(c, thisField, exportName)
-    }).toSeq
+    }).toVector
 }

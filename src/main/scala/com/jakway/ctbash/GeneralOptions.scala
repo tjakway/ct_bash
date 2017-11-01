@@ -3,7 +3,7 @@ package com.jakway.ctbash
 import java.io.File
 import java.nio.file.Files
 
-import com.jakway.ctbash.compile.ExternalScalac
+import com.jakway.ctbash.compile.{BashCompiler, ExternalScalac}
 
 object GeneralOptions {
   //TODO: check passed options
@@ -14,6 +14,9 @@ object GeneralOptions {
       outputDir.map(new File(_)).getOrElse(outputDirName),
       intermediateDir.map(new File(_)).getOrElse(tempDir()),
       runMain,
+      Array(),
+      //by default, include the standard bash shebang
+      BashCompiler.Options(Some(BashCompiler.Options.bashShebang)),
       ExternalScalac.Options(Array())
     )
   }
@@ -37,4 +40,7 @@ object GeneralOptions {
 case class GeneralOptions(outputDir: File,
                           intermediateDir: File,
                           runMain: Boolean,
+                         //TODO: must be empty if runMain == false
+                          mainArgs: Array[String],
+                          bashOptions: BashCompiler.Options,
                           scalacOptions: ExternalScalac.Options)

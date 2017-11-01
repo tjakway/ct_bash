@@ -163,8 +163,8 @@ class Executor(val classFiles: Seq[Class[_]]) {
     }
   }
 
-  def evaluateFields(): Either[Seq[CompileError], Seq[EvaluatedField[_]]] = {
-    val empty: Either[Seq[CompileError], Seq[EvaluatedField[_]]] = Right(Seq())
+  def evaluateFields(): Either[Seq[CompileError], Vector[EvaluatedField[_]]] = {
+    val empty: Either[Seq[CompileError], Vector[EvaluatedField[_]]] = Right(Vector())
     exportedFields.foldLeft(empty) {
 
       case (Left(errs), thisField) => {

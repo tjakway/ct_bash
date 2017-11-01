@@ -8,24 +8,20 @@ object BashCompiler {
     *
     * @param shebang whether to write a shebang line and if so what it should be
     */
-  case class BashOptions(shebang: Option[String]) extends CompilerOptions
+  case class Options(shebang: Option[String]) extends CompilerOptions
 
   object Options {
     val bashShebang = "#!/usr/bin/env bash"
   }
 }
 
-/**
-  * _ <: Object ignores the parameterized type
-  * see https://stackoverflow.com/questions/37232974/scala-how-to-completely-ignore-an-objects-type-parameter-when-needed
-  *
-  */
-class BashCompiler(val evaluatedFields: Seq[EvaluatedField[_ <: Object]], val bashSource: BashSource)
-  extends Compiler[BashCompiler.BashOptions] {
+//TODO: handle multiple bash sources
+class BashCompiler(val evaluatedFields: Vector[EvaluatedField[_]], val bashSources: Vector[BashSource])
+  extends Compiler[BashCompiler.Options] {
   val header = """"""
 
   // TODO: should error if multiple exported fields have the same name
-  def compile(options: BashCompiler.BashOptions): CompileOutput = {
+  def compile(options: BashCompiler.Options): CompileOutput = {
       val warnings = if(evaluatedFields.isEmpty) {
         Seq(NoExportedFields)
       } else {
