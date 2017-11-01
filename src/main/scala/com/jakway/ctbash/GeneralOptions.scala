@@ -5,12 +5,12 @@ import java.nio.file.Files
 
 import com.jakway.ctbash.compile.ExternalScalac
 
-object Options {
+object GeneralOptions {
   //TODO: check passed options
 
   def mkOptions(outputDir: Option[String], intermediateDir: Option[String], runMain: Boolean) = {
     //use the passed directories or create temp
-    Options(
+    GeneralOptions(
       outputDir.map(new File(_)).getOrElse(outputDirName),
       intermediateDir.map(new File(_)).getOrElse(tempDir()),
       runMain,
@@ -34,7 +34,7 @@ object Options {
   *
   * @param runMain
   */
-case class Options(outputDir: File,
-                   intermediateDir: File,
-                   runMain: Boolean,
-                   scalacOptions: ExternalScalac.Options)
+case class GeneralOptions(outputDir: File,
+                          intermediateDir: File,
+                          runMain: Boolean,
+                          scalacOptions: ExternalScalac.Options)
