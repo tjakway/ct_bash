@@ -16,7 +16,7 @@ object BashCompiler {
 }
 
 //TODO: handle multiple bash sources
-class BashCompiler(val evaluatedFields: Vector[EvaluatedField[_]], val bashSources: Vector[BashSource])
+class BashCompiler(val evaluatedFields: Vector[EvaluatedField[_]], val bashSource: BashSource)
   extends Compiler[BashCompiler.Options] {
   val header = """"""
 
